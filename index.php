@@ -13,7 +13,7 @@
 
     <?php
 
-        $connect = mysqli_connect('php2.haudi', 'root', '', 'test_db'); // mysqli_connect(server, user, pass, db_name)
+        $connect = mysqli_connect('php.gogo', 'root', '', 'test_db');     // mysqli_connect(server, user, pass, db_name)
 
         if($connect == false) {
             echo 'No connection with DB';
