@@ -7,46 +7,63 @@
     <link rel="stylesheet" href="style.css">
     <title>PHP</title>
 </head>
-<body>
+    <body>
 
-    <h1>php</h1>
+        <h1>php</h1>
 
-    <?php
+        <?php
 
-        $connect = mysqli_connect('php.gogo', 'root', '', 'test_db');     // mysqli_connect(server, user, pass, db_name)
+            $connect = mysqli_connect('php.gogo', 'root', '', 'test_db');     // mysqli_connect(server, user, pass, db_name)
 
-        if($connect == false) {
-            echo 'No connection with DB';
-            echo mysqli_connect_error();
-            exit(); // die();
-        } 
+            if($connect == false) {
+                echo 'No connection with DB';
+                echo mysqli_connect_error();
+                exit(); // die();
+            } 
 
-        $result = mysqli_query($connect, "SELECT * FROM `articles_categories`");
-        $artic = mysqli_query($connect, "SELECT * FROM `articles`");
+            $result = mysqli_query($connect, "SELECT * FROM `articles_categories`");
+            $artic = mysqli_query($connect, "SELECT * FROM `articles`");
 
-        // $r1 = mysqli_fetch_assoc($result);
-        // print_r($r1);   // Array ( [id] => 1 [title] => Sport )
-        // while ( $record = mysqli_fetch_assoc($result) ) {
-        //     // while not empty
-        //     print_r($record);
-        //     echo '<br>';
-        // }
+            // $r1 = mysqli_fetch_assoc($result);
+            // print_r($r1);   // Array ( [id] => 1 [title] => Sport )
+            // while ( $record = mysqli_fetch_assoc($result) ) {
+            //     // while not empty
+            //     print_r($record);
+            //     echo '<br>';
+            // }
 
-    ?>
-        <ul>
 
-            <?php
-                while ( $cat = mysqli_fetch_assoc($result) ) {
+            $count = mysqli_num_rows($result);
 
-                    $text = mysqli_fetch_assoc($artic);
+        ?>
 
-                    echo '<hr>' . '<li>' . $cat['title'] . 
-                    '<ul>' .
-                        '<li>' . '<br>' . $text['text'] . '</li>' .
-                    '</ul>';
-                }
-            ?>
-        </ul>
+            <ul>
+                <?php
+                    while ( $cat = mysqli_fetch_assoc($result) ) {
+
+                        $text = mysqli_fetch_assoc($artic);
+
+                        $articles_count = mysqli_query($connect, "SELECT * FROM `articles`");
+                        $num_artic =  mysqli_fetch_assoc($articles_count);
+                        $art_num = $num_artic[category_id];
+                        
+                        echo $count;
+                        // if ($art_num) {
+                        //     echo $num;
+                        // } else {
+                        //     $num =+ 1;
+                        // }
+
+
+                        echo '<hr>' . '<li>' . $cat['title'] . ' ' . '(' . '$articles_count' . ')'.
+
+                        '<ul>' .
+                            '<li>' . '<br>' . rand(10, 99). '</li>' .
+                        '</ul>';
+                    }
+                ?>
+            </ul>
+
 
         <?php
             mysqli_close($connect);
@@ -59,7 +76,7 @@
 
 
     
-</body>
+    </body>
 </html>
 
 
