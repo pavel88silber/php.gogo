@@ -12,7 +12,6 @@
         <h1>php</h1>
 
         <?php
-
             $connect = mysqli_connect('php.gogo', 'root', '', 'test_db');     // mysqli_connect(server, user, pass, db_name)
 
             if($connect == false) {
@@ -24,38 +23,25 @@
             $result = mysqli_query($connect, "SELECT * FROM `articles_categories`");
             $artic = mysqli_query($connect, "SELECT * FROM `articles`");
 
-            // $r1 = mysqli_fetch_assoc($result);
-            // print_r($r1);   // Array ( [id] => 1 [title] => Sport )
-            // while ( $record = mysqli_fetch_assoc($result) ) {
-            //     // while not empty
-            //     print_r($record);
-            //     echo '<br>';
-            // }
-
-
-            $count = mysqli_num_rows($result);
-
+            $count = mysqli_num_rows($result); // total number of articles
         ?>
 
             <ul>
                 <?php
+
+                    echo 'Total of articles is ' . $count . '<br>';
+
                     while ( $cat = mysqli_fetch_assoc($result) ) {
 
-                        $text = mysqli_fetch_assoc($artic);
-
                         $articles_count = mysqli_query($connect, "SELECT * FROM `articles`");
-                        $num_artic =  mysqli_fetch_assoc($articles_count);
-                        $art_num = $num_artic[category_id];
+
+                        echo '$cat[id]  ' . $cat[id];
                         
-                        echo $count;
-                        // if ($art_num) {
-                        //     echo $num;
-                        // } else {
-                        //     $num =+ 1;
-                        // }
+                        $count_new = mysqli_query($connect, "SELECT * FROM `articles` WHERE `category_id` = " . $cat['id']);
+                        
 
 
-                        echo '<hr>' . '<li>' . $cat['title'] . ' ' . '(' . '$articles_count' . ')'.
+                        echo '<hr>' . '<li>' . $cat['title'] . ' ' . '(' . mysqli_num_rows($count_new) . ')'.
 
                         '<ul>' .
                             '<li>' . '<br>' . rand(10, 99). '</li>' .
