@@ -39,12 +39,10 @@
                         $articles_count = mysqli_query($connect, "SELECT * FROM `articles` WHERE `category_id` =  " . $cat['id']);
 
 
-                        echo '<hr>' . '<li>' . $cat['title'] . ' ' . '(' . mysqli_num_rows($articles_count) . ')'.
-
-                        '<ul>' .
-                            '<li>' . '<LI>' . '</li>' .
-                        '</ul>';
+                        echo '<hr>' . '<li>' . $cat['title'] . ' ' . '(' . mysqli_num_rows($articles_count) . ')' . '</li>';
+                        
                     }
+                    echo '<hr>';
                 ?>
             </ul>
 
