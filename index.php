@@ -36,10 +36,14 @@
 
                     while ( $cat = mysqli_fetch_assoc($result) AND $arr = mysqli_fetch_assoc($count_new)) {
 
-                        $articles_count = mysqli_query($connect, "SELECT * FROM `articles` WHERE `category_id` =  " . $cat['id']);
+                        $articles_count = mysqli_query($connect, "SELECT COUNT(`id`) AS `total_count` FROM `articles` WHERE `category_id` =  " . $cat['id']);
+
+                        $total_count_result = mysqli_fetch_assoc($articles_count);
 
 
-                        echo '<hr>' . '<li>' . $cat['title'] . ' ' . '(' . mysqli_num_rows($articles_count) . ')' . '</li>';
+
+
+                        echo '<hr>' . '<li>' . $cat['title'] . ' ' . '(' . $total_count_result['total_count'] . ')' . '</li>';
                         
                     }
                     echo '<hr>';
